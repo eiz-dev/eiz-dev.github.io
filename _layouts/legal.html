@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{%- comment -%}
+  Renders _includes/docs/<doc>.<lang>.md for one app. Page front matter:
+  app (key in _data/apps.yml), doc (privacy | terms | support), lang.
+  The doc templates can use: app, studio, t, lang, email, privacy_url,
+  terms_url, support_url.
+{%- endcomment -%}
+{%- assign lang = page.lang | default: site.languages[0] -%}
+{%- assign t = site.data.i18n[lang] -%}
+{%- assign app = site.data.apps[page.app] -%}
+{%- assign studio = site.data.studio -%}
+{%- capture email %}{% include support-email.html tag=app.email_tag %}{% endcapture -%}
+{%- capture subject %}{{ app.name }} — {{ t.support }}{% endcapture -%}
+{%- assign subject = subject | url_encode | replace: '+', '%20' -%}
+{%- capture mailto %}mailto:{{ email }}?subject={{ subject }}{% endcapture -%}
+{%- capture privacy_url %}{% include doc-url.html app=page.app doc='privacy' lang=lang %}{% endcapture -%}
+{%- capture terms_url %}{% include doc-url.html app=page.app doc='terms' lang=lang %}{% endcapture -%}
+{%- capture support_url %}{% include doc-url.html app=page.app doc='support' lang=lang %}{% endcapture -%}
+{%- capture doc_path %}docs/{{ page.doc }}.{{ lang }}.md{% endcapture -%}
+{%- capture body %}{% include {{ doc_path }} %}{% endcapture %}
+<article class="doc">
+  <p class="eyebrow">{{ app.name | escape }}</p>
+{{ body | markdownify }}
+</article>

@@ -1,0 +1,25 @@
+# Developer-level facts shared by every app. Values marked MOCK still need replacing.
+
+# EizDev is a brand name only — not a registered company. The legal party in
+# every document is the individual developer (`owner_name`), who publishes
+# under this name. If a FOP is registered later, change `owner_name` / `legal_status`.
+name: EizDev
+owner_name: Kostiantyn Mospan       # legal name, as on the store developer accounts
+country: Ukraine
+
+# Support inbox: the contact on every page and in every document.
+support:
+  email: support@eizdev.com
+  # Per-app plus-aliases: `<local>+<email_tag>@<domain>` (e.g. support+stickerzzz@eizdev.com).
+  # Turn on only if the inbox delivers sub-addressed mail. Off: every app
+  # uses `email`, and scripts/gmail_filters.rb sorts mail by subject instead.
+  plus_aliases: false
+  response_days: 2
+  # Optional Google Form (or Tally) embed URL shown on every /<app>/support page.
+  # If you set it, keep `form_processor` accurate — the privacy policy names it.
+  form_url: ""
+  form_processor: Google Forms (Google Ireland Limited / Google LLC)
+
+# AdMob publisher ID (AdMob → Settings → Account information). One line in
+# /app-ads.txt covers every app in the account.
+admob_publisher_id: pub-1176141176678822

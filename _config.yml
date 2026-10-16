@@ -1,0 +1,28 @@
+# Studio developer site — legal pages, support and app-ads.txt for every app.
+# Served by plain GitHub Pages from the repo `<org>.github.io` (no CI, no plugins).
+# See README.md for setup.
+
+title: EizDev
+description: Mobile apps by EizDev, an independent developer.
+url: https://eiz-dev.github.io  # repo eiz-dev/eiz-dev.github.io (Pages URLs are lowercase)
+baseurl: ""
+
+permalink: pretty
+markdown: kramdown
+
+# First entry is the default language: its pages live at /<app>/<doc>/,
+# the others at /<app>/<lang>/<doc>/.
+languages: [en, uk, de]
+
+# Shows a "draft / mock content" banner on every page. Set to false once the
+# templates in _includes/docs/ contain the reviewed texts.
+mock_content: true
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - scripts/
+  - gmail/
+  - vendor/
+  - .bundle/

@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /app-ads.txt
+---
+# app-ads.txt for {{ site.url }} — https://iabtechlab.com/ads-txt/
+google.com, {{ site.data.studio.admob_publisher_id }}, DIRECT, f08c47fec0942fa0

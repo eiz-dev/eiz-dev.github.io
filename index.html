@@ -1,0 +1,36 @@
+---
+layout: default
+---
+{%- assign studio = site.data.studio -%}
+{%- capture email %}{% include support-email.html %}{% endcapture -%}
+<section class="intro">
+  <h1>{{ site.title }}</h1>
+  <p>{{ site.description }}</p>
+</section>
+
+<section>
+  <h2>Apps</h2>
+  <ul class="apps">
+    {%- for entry in site.data.apps %}
+    {%- assign slug = entry[0] %}
+    {%- assign app = entry[1] %}
+    <li class="app">
+      <h3>{{ app.name | escape }}</h3>
+      <p>{{ app.tagline.en }}</p>
+      <p class="links">
+        {%- if app.stores.ios != "" %}<a href="{{ app.stores.ios }}">App Store</a>{% endif %}
+        {%- if app.stores.android != "" %}<a href="{{ app.stores.android }}">Google Play</a>{% endif %}
+        <a href="{% include doc-url.html app=slug doc='support' lang='en' %}">Support</a>
+        <a href="{% include doc-url.html app=slug doc='privacy' lang='en' %}">Privacy</a>
+        <a href="{% include doc-url.html app=slug doc='terms' lang='en' %}">Terms</a>
+      </p>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>{{ studio.owner_name }} · <a href="mailto:{{ email }}">{{ email }}</a></p>
+  <p><a href="{{ '/legal-notice/' | relative_url }}">Legal notice / Impressum</a></p>
+</section>

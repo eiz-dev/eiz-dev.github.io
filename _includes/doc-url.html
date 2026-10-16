@@ -1,0 +1,10 @@
+{%- comment -%}
+  URL of one app document. Params: app, doc, lang, absolute (optional).
+  Default language → /<app>/<doc>/, others → /<app>/<lang>/<doc>/.
+{%- endcomment -%}
+{%- if include.lang == site.languages[0] -%}
+  {%- capture path -%}/{{ include.app }}/{{ include.doc }}/{%- endcapture -%}
+{%- else -%}
+  {%- capture path -%}/{{ include.app }}/{{ include.lang }}/{{ include.doc }}/{%- endcapture -%}
+{%- endif -%}
+{%- if include.absolute -%}{{ path | absolute_url }}{%- else -%}{{ path | relative_url }}{%- endif -%}

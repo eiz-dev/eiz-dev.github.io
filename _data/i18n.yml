@@ -1,0 +1,43 @@
+# UI strings. Document bodies live in _includes/docs/<doc>.<lang>.md.
+
+en:
+  lang_name: English
+  privacy: Privacy Policy
+  terms: Terms of Use
+  support: Support
+  legal_notice: Legal notice
+  apps: Apps
+  contact: Contact
+  effective_date: Effective date
+  email: Email
+  get_ios: App Store
+  get_android: Google Play
+  mock_banner: Draft — placeholder text, not the final legal wording.
+
+uk:
+  lang_name: Українська
+  privacy: Політика конфіденційності
+  terms: Умови використання
+  support: Підтримка
+  legal_notice: Правова інформація
+  apps: Застосунки
+  contact: Контакти
+  effective_date: Дата набрання чинності
+  email: Ел. пошта
+  get_ios: App Store
+  get_android: Google Play
+  mock_banner: Чернетка — тимчасовий текст, не остаточне юридичне формулювання.
+
+de:
+  lang_name: Deutsch
+  privacy: Datenschutzerklärung
+  terms: Nutzungsbedingungen
+  support: Support
+  legal_notice: Impressum
+  apps: Apps
+  contact: Kontakt
+  effective_date: Gültig ab
+  email: E-Mail
+  get_ios: App Store
+  get_android: Google Play
+  mock_banner: Entwurf — Platzhaltertext, nicht die endgültige rechtliche Fassung.

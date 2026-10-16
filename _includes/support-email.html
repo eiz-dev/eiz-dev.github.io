@@ -1,0 +1,11 @@
+{%- comment -%}
+  Support address (studio.support.email). Param: tag (app email_tag, optional).
+  With studio.support.plus_aliases, an app with a tag gets <local>+<tag>@<domain>.
+{%- endcomment -%}
+{%- assign s = site.data.studio.support -%}
+{%- if include.tag and s.plus_aliases -%}
+  {%- assign parts = s.email | split: '@' -%}
+  {{- parts[0] }}+{{ include.tag }}@{{ parts[1] -}}
+{%- else -%}
+  {{- s.email -}}
+{%- endif -%}

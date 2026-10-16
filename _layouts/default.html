@@ -1,0 +1,56 @@
+<!doctype html>
+{%- assign lang = page.lang | default: site.languages[0] -%}
+{%- assign t = site.data.i18n[lang] -%}
+{%- if page.app -%}{%- assign app = site.data.apps[page.app] -%}{%- endif %}
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.doc %}{{ t[page.doc] }} — {{ app.name | escape }}{% elsif page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  {%- if page.doc %}
+  {%- for l in site.languages %}
+  <link rel="alternate" hreflang="{{ l }}" href="{% include doc-url.html app=page.app doc=page.doc lang=l absolute=true %}">
+  {%- endfor %}
+  {%- endif %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      {%- if page.doc %}
+      <nav class="langs" aria-label="Language">
+        {%- for l in site.languages %}
+        {%- if l == lang %}
+        <span aria-current="page">{{ site.data.i18n[l].lang_name }}</span>
+        {%- else %}
+        <a href="{% include doc-url.html app=page.app doc=page.doc lang=l %}" hreflang="{{ l }}" lang="{{ l }}">{{ site.data.i18n[l].lang_name }}</a>
+        {%- endif %}
+        {%- endfor %}
+      </nav>
+      {%- endif %}
+    </div>
+  </header>
+
+  {%- if site.mock_content %}
+  <div class="mock" role="note"><div class="wrap">{{ t.mock_banner }}</div></div>
+  {%- endif %}
+
+  <main class="wrap">
+{{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      {%- if page.app %}
+      <a href="{% include doc-url.html app=page.app doc='privacy' lang=lang %}">{{ t.privacy }}</a>
+      <a href="{% include doc-url.html app=page.app doc='terms' lang=lang %}">{{ t.terms }}</a>
+      <a href="{% include doc-url.html app=page.app doc='support' lang=lang %}">{{ t.support }}</a>
+      {%- endif %}
+      <a href="{{ '/legal-notice/' | relative_url }}">{{ t.legal_notice }}</a>
+      <span>© {{ site.time | date: '%Y' }} {{ site.data.studio.owner_name }} ({{ site.data.studio.name }})</span>
+    </div>
+  </footer>
+</body>
+</html>

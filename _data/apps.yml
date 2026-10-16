@@ -1,0 +1,244 @@
+# One entry per app; the key is the URL slug (/<slug>/privacy/ ...).
+# The policy/terms/support templates in _includes/docs/ switch paragraphs on
+# these flags, so keep them true to what the shipped app actually does.
+# New app: add an entry here, then `ruby scripts/new_app.rb <slug>`.
+#
+# Optional flags (absent = off), used by apps with a server or user content.
+# See the `stickerzzz` entry for examples:
+#   server: { host, data }      what our server stores (needs accounts: true)
+#   server_delete               how to get the server data deleted
+#   telegram, telegram_bot,     Telegram linking via a bot and publishing to Telegram
+#   telegram_disconnect_path
+#   user_content                Terms: rules for photos/content the user uploads
+#   ads_consent: false          the app shows no consent message (no UMP)
+#   ad_formats                  which ads the free version shows
+#   ads_paid_note               sentence on what purchases do to ads (default: premium_name removes ads)
+#   iap_plans                   several one-time purchases instead of one premium_name
+#   iap_server_check            purchases are verified by our server with the store
+#   data_location               support FAQ answer to "Where is my data stored?"
+#   warranty_note               app-specific sentence in Terms → No warranty
+
+stick-and-kick:
+  name: Stick & Kick
+  tagline:
+    en: Drum timing trainer — tap along, see how steady you are.
+    uk: Тренажер ритму для барабанщиків — грайте під клік і бачте свою точність.
+    de: Timing-Trainer für Drummer — mitklopfen und sehen, wie stabil du bist.
+  email_tag: stickkick               # plus-alias tag, used only if studio.support.plus_aliases
+  effective_date: 2026-10-12
+  stores:
+    ios: ""                          # App Store URL once live
+    android: ""                      # https://play.google.com/store/apps/details?id=com.stickandkick.app
+
+  ads: true                          # Google AdMob in the free version (UMP consent in EEA/UK/CH)
+  iap: true                          # in-app purchase
+  iap_kind: one_time                 # one_time | subscription
+  premium_name: Premium
+  accounts: false                    # user accounts / own servers
+  analytics: false                   # analytics or crash reporting
+
+  # In-app path to the "delete all my data" action, or "" if there is none.
+  delete_data_path:
+    en: Settings → Legal & privacy → Delete all my data
+    uk: Налаштування → Правова інформація → Видалити всі мої дані
+    de: Einstellungen → Rechtliches & Datenschutz → Alle meine Daten löschen
+
+  # Third-party SDKs that process personal data.
+  sdks:
+    - name: Google AdMob
+      provider: Google Ireland Limited (EEA/UK/CH), Google LLC (elsewhere)
+      purpose: { en: Advertising, uk: Реклама, de: Werbung }
+      privacy_url: https://policies.google.com/privacy
+    - name: Google User Messaging Platform
+      provider: Google Ireland Limited / Google LLC
+      purpose: { en: Ad consent, uk: Згода на рекламу, de: Werbe-Einwilligung }
+      privacy_url: https://policies.google.com/privacy
+
+  # Data the app stores locally (never sent to us).
+  local_data:
+    - en: Patterns you record (name, tempo, meter, beats)
+      uk: Записані вами патерни (назва, темп, розмір, удари)
+      de: Von dir aufgenommene Patterns (Name, Tempo, Takt, Schläge)
+    - en: Practice history and timing scores
+      uk: Історія занять і оцінки точності
+      de: Übungsverlauf und Timing-Werte
+    - en: Calibration offset (audio/touch delay)
+      uk: Калібрування (затримка звуку/дотику)
+      de: Kalibrierung (Audio-/Touch-Verzögerung)
+    - en: Settings and whether Premium is unlocked
+      uk: Налаштування та чи розблоковано Premium
+      de: Einstellungen und ob Premium freigeschaltet ist
+
+  # App-specific FAQ for the support page (generic purchase/data/ads answers
+  # are added automatically from the flags above).
+  faq:
+    - q:
+        en: My results feel off with Bluetooth headphones.
+        uk: З Bluetooth-навушниками результати здаються неточними.
+        de: Mit Bluetooth-Kopfhörern wirken die Ergebnisse ungenau.
+      a:
+        en: Bluetooth adds a variable delay. Use wired headphones or the speaker, or run Settings → Calibration with the headphones connected.
+        uk: Bluetooth додає змінну затримку. Використовуйте дротові навушники чи динамік або пройдіть Налаштування → Калібрування з підключеними навушниками.
+        de: Bluetooth fügt eine schwankende Verzögerung hinzu. Nutze kabelgebundene Kopfhörer oder den Lautsprecher oder führe Einstellungen → Kalibrierung mit verbundenen Kopfhörern aus.
+
+stickerzzz:
+  name: Stickerzzz
+  tagline:
+    en: Turn your photos into Telegram sticker packs.
+    uk: Перетворюйте свої фото на набори стікерів для Telegram.
+    de: Mach aus deinen Fotos Sticker-Packs für Telegram.
+  email_tag: stickerzzz              # plus-alias tag, used only if studio.support.plus_aliases
+  effective_date: 2026-10-16
+  stores:
+    ios: ""                          # Android only
+    android: https://play.google.com/store/apps/details?id=com.sixEyesForTwo.stickerzzz
+
+  # Free version: interstitial ads at some moments + optional rewarded videos
+  # (lib/models/services/ads_manager_service.dart, lib/core/ads/rewarded_video.dart).
+  # No banner. No UMP consent form in the app (google_mobile_ads only).
+  ads: true
+  ads_consent: false
+  ad_formats:
+    en: full-screen ads at some moments, and rewarded videos you can choose to watch for an extra sticker slot
+    uk: повноекранну рекламу в окремі моменти та відео з винагородою, які ви можете переглянути за додаткове місце для стікера
+    de: Vollbildanzeigen an manchen Stellen und Videos mit Belohnung, die du freiwillig für einen zusätzlichen Sticker-Platz ansehen kannst
+  # Unlimited keeps ads; Ads Free/Premium turn off interstitials (LimitsService.showsAds).
+  # The optional rewarded video for +1 slot stays available to everyone.
+  ads_paid_note:
+    en: Ads Free and Premium turn off the full-screen ads; rewarded videos only play when you choose to watch one.
+    uk: Ads Free і Premium вимикають повноекранну рекламу; відео з винагородою відтворюються лише тоді, коли ви самі вирішите його переглянути.
+    de: Ads Free und Premium schalten die Vollbildanzeigen ab; Belohnungsvideos laufen nur, wenn du selbst eins ansehen möchtest.
+
+  # Google Play Billing one-time products ads_free / unlimited / premium,
+  # verified by our server (api-worker /api/validatePurchase → Google Play Developer API).
+  iap: true
+  iap_kind: one_time
+  premium_name: Premium
+  iap_plans:
+    en: Ads Free, Unlimited and Premium
+    uk: Ads Free, Unlimited і Premium
+    de: Ads Free, Unlimited und Premium
+  iap_server_check: true
+
+  # Firebase Anonymous Auth + own server (Cloudflare Worker + D1). No sign-in with
+  # name/email. No Firebase Analytics / Crashlytics in pubspec.yaml.
+  accounts: true
+  analytics: false
+  server:
+    host: Cloudflare, Inc. (Cloudflare Workers, D1)
+    data:
+      - en: A random app ID from Firebase Anonymous Authentication, and when it was first seen
+        uk: Випадковий ідентифікатор застосунку з Firebase Anonymous Authentication і час його першої появи
+        de: Eine zufällige App-ID aus Firebase Anonymous Authentication und wann sie zuerst gesehen wurde
+      - en: Which plans you own (Ads Free, Unlimited, Premium). The purchase token the app sends is only used to check the purchase with Google Play and is not stored
+        uk: Які тарифи у вас є (Ads Free, Unlimited, Premium). Токен покупки, який надсилає застосунок, використовується лише для перевірки в Google Play і не зберігається
+        de: Welche Pläne du besitzt (Ads Free, Unlimited, Premium). Das Kauf-Token, das die App sendet, wird nur zur Prüfung bei Google Play verwendet und nicht gespeichert
+      - en: "If you connect Telegram: your Telegram user ID, username and first name, and the one-time connect code"
+        uk: "Якщо ви підключили Telegram: ваш ідентифікатор користувача Telegram, ім’я користувача (username) та ім’я, а також одноразовий код підключення"
+        de: "Wenn du Telegram verbindest: deine Telegram-Nutzer-ID, deinen Benutzernamen und Vornamen sowie den einmaligen Verbindungscode"
+      - en: "For each pack you published: its title, link name, creation time and number of extra slots (the stickers themselves are stored by Telegram)"
+        uk: "Для кожного опублікованого паку: назва, назва посилання, час створення і кількість додаткових місць (самі стікери зберігає Telegram)"
+        de: "Für jedes veröffentlichte Pack: Titel, Link-Name, Erstellungszeit und Anzahl zusätzlicher Plätze (die Sticker selbst speichert Telegram)"
+  server_delete:
+    en: Clear app data (see above) disconnects Telegram and starts a new anonymous ID on this phone, but the old record stays on our server. To have it deleted, email us and tell us your Telegram username if you connected one. We delete the record within 30 days. Packs you published stay on Telegram until you delete them in the app (do it before clearing app data), or ask us in the same email to delete them.
+    uk: «Очистити дані застосунку» (див. вище) відключає Telegram і створює новий анонімний ідентифікатор на цьому телефоні, але старий запис залишається на нашому сервері. Щоб його видалити, напишіть нам і вкажіть ваш username у Telegram, якщо ви його підключали. Ми видалимо запис протягом 30 днів. Опубліковані паки залишаються в Telegram, доки ви не видалите їх у застосунку (зробіть це до очищення даних) або не попросите нас видалити їх у тому самому листі.
+    de: „App-Daten löschen“ (siehe oben) trennt Telegram und erzeugt auf diesem Telefon eine neue anonyme ID, der alte Eintrag bleibt aber auf unserem Server. Um ihn löschen zu lassen, schreib uns eine E-Mail und nenne deinen Telegram-Benutzernamen, falls du Telegram verbunden hast. Wir löschen den Eintrag innerhalb von 30 Tagen. Veröffentlichte Packs bleiben auf Telegram, bis du sie in der App löschst (vor dem Löschen der App-Daten) oder uns in derselben E-Mail bittest, sie zu löschen.
+
+  # Telegram linking via the bot; packs are published under the user's account.
+  telegram: true
+  telegram_bot: StickerzzzApp_bot
+  telegram_disconnect_path:
+    en: Settings → Telegram → Disconnect
+    uk: Налаштування → Telegram → Відключити
+    de: Settings → Telegram → Disconnect
+
+  user_content: true
+
+  # "Settings → Clear app data" (lib/ui/screens/settings/clear_app_data_dialog.dart,
+  # lib/core/app_data_service.dart). The app has no German UI, so de shows the English labels.
+  delete_data_path:
+    en: Settings → Clear app data
+    uk: Налаштування → Очистити дані застосунку
+    de: Settings → Clear app data
+
+  data_location:
+    en: Drafts and the photos you pick stay on your phone. Published packs live on Telegram under your account. Our server keeps only an anonymous app ID, your Telegram link, the list of packs you published and which plans you own — see the privacy policy.
+    uk: Чернетки та вибрані фото залишаються на вашому телефоні. Опубліковані паки зберігаються в Telegram у вашому обліковому записі. Наш сервер зберігає лише анонімний ідентифікатор застосунку, прив’язку Telegram, список опублікованих паків і ваші тарифи — див. політику конфіденційності.
+    de: Entwürfe und die ausgewählten Fotos bleiben auf deinem Telefon. Veröffentlichte Packs liegen auf Telegram in deinem Konto. Unser Server speichert nur eine anonyme App-ID, deine Telegram-Verknüpfung, die Liste deiner veröffentlichten Packs und deine Pläne — siehe Datenschutzerklärung.
+
+  warranty_note:
+    en: Publishing depends on Telegram. We do not control Telegram and are not responsible if it is unavailable, changes its limits or removes a pack.
+    uk: Публікація залежить від Telegram. Ми не контролюємо Telegram і не відповідаємо, якщо він недоступний, змінює обмеження або видаляє пак.
+    de: Das Veröffentlichen hängt von Telegram ab. Wir haben keinen Einfluss auf Telegram und sind nicht verantwortlich, wenn es nicht erreichbar ist, seine Limits ändert oder ein Pack entfernt.
+
+  # Third-party services that process personal data (pubspec.yaml + server).
+  sdks:
+    - name: Firebase Authentication
+      provider: Google LLC
+      purpose: { en: Anonymous app ID, uk: Анонімний ідентифікатор застосунку, de: Anonyme App-ID }
+      privacy_url: https://firebase.google.com/support/privacy
+    - name: Firebase Remote Config
+      provider: Google LLC
+      purpose: { en: App settings and limits, uk: Налаштування й обмеження застосунку, de: App-Einstellungen und Limits }
+      privacy_url: https://firebase.google.com/support/privacy
+    - name: Google AdMob
+      provider: Google Ireland Limited (EEA/UK/CH), Google LLC (elsewhere)
+      purpose: { en: Advertising, uk: Реклама, de: Werbung }
+      privacy_url: https://policies.google.com/privacy
+    - name: Google Play Billing
+      provider: Google Ireland Limited / Google LLC
+      purpose: { en: Purchases, uk: Покупки, de: Käufe }
+      privacy_url: https://policies.google.com/privacy
+    - name: Google Play in-app updates
+      provider: Google Ireland Limited / Google LLC
+      purpose: { en: Update prompts, uk: Пропозиції оновлення, de: Update-Hinweise }
+      privacy_url: https://policies.google.com/privacy
+    - name: Cloudflare (Workers, D1)
+      provider: Cloudflare, Inc.
+      purpose: { en: Hosting our server, uk: Хостинг нашого сервера, de: Hosting unseres Servers }
+      privacy_url: https://www.cloudflare.com/privacypolicy/
+    - name: Telegram (Bot API)
+      provider: Telegram FZ-LLC / Telegram Messenger Inc.
+      purpose: { en: Connecting your account and publishing your packs, uk: Підключення облікового запису й публікація паків, de: Konto verbinden und Packs veröffentlichen }
+      privacy_url: https://telegram.org/privacy
+
+  # Data the app stores only on the phone.
+  local_data:
+    - en: Drafts — packs you haven't published yet, with their sticker images, emojis and titles
+      uk: Чернетки — ще не опубліковані паки з зображеннями стікерів, емодзі та назвами
+      de: Entwürfe — noch nicht veröffentlichte Packs mit Sticker-Bildern, Emojis und Titeln
+    - en: Photos you pick or take. They are cropped and turned into stickers on the phone; the original photos are never uploaded
+      uk: Фото, які ви вибираєте чи знімаєте. Їх обрізають і перетворюють на стікери на телефоні; оригінальні фото ніколи не завантажуються
+      de: Fotos, die du auswählst oder aufnimmst. Sie werden auf dem Telefon zugeschnitten und zu Stickern gemacht; die Originalfotos werden nie hochgeladen
+    - en: Cached images of your published stickers
+      uk: Кешовані зображення ваших опублікованих стікерів
+      de: Zwischengespeicherte Bilder deiner veröffentlichten Sticker
+    - en: Settings (theme, language), recently used emojis, whether you accepted the terms, and a daily counter for rewarded videos
+      uk: Налаштування (тема, мова), нещодавні емодзі, чи прийняли ви умови, і щоденний лічильник відео з винагородою
+      de: Einstellungen (Design, Sprache), zuletzt genutzte Emojis, ob du die Bedingungen akzeptiert hast, und ein Tageszähler für Belohnungsvideos
+
+  faq:
+    - q:
+        en: Why do I need to connect Telegram?
+        uk: Навіщо підключати Telegram?
+        de: Warum muss ich Telegram verbinden?
+      a:
+        en: Packs are published on Telegram under your account, and our bot @StickerzzzApp_bot creates them for you. You can make stickers without connecting and connect when you publish (Settings → Telegram).
+        uk: Паки публікуються в Telegram у вашому обліковому записі, і створює їх наш бот @StickerzzzApp_bot. Робити стікери можна й без підключення — підключіться, коли публікуватимете (Налаштування → Telegram).
+        de: Packs werden auf Telegram in deinem Konto veröffentlicht; unser Bot @StickerzzzApp_bot erstellt sie für dich. Sticker kannst du auch ohne Verbindung machen und erst beim Veröffentlichen verbinden (Settings → Telegram).
+    - q:
+        en: I changed phones or cleared app data. Where are my packs?
+        uk: Я змінив(-ла) телефон або очистив(-ла) дані. Де мої паки?
+        de: Ich habe das Telefon gewechselt oder die App-Daten gelöscht. Wo sind meine Packs?
+      a:
+        en: Published packs stay on Telegram. Connect the same Telegram account again in Settings to see and edit them. Drafts were stored only on the old phone and can't be recovered.
+        uk: Опубліковані паки залишаються в Telegram. Підключіть той самий обліковий запис Telegram у Налаштуваннях, щоб бачити й редагувати їх. Чернетки зберігалися лише на старому телефоні, їх не відновити.
+        de: Veröffentlichte Packs bleiben auf Telegram. Verbinde in den Settings dasselbe Telegram-Konto erneut, um sie zu sehen und zu bearbeiten. Entwürfe lagen nur auf dem alten Telefon und lassen sich nicht wiederherstellen.
+    - q:
+        en: How do I delete a published pack?
+        uk: Як видалити опублікований пак?
+        de: Wie lösche ich ein veröffentlichtes Pack?
+      a:
+        en: Open the pack, tap ⋯ → Delete pack. It is deleted on Telegram too.
+        uk: Відкрийте пак, натисніть ⋯ → Видалити пак. Його буде видалено і в Telegram.
+        de: Öffne das Pack und tippe auf ⋯ → Delete pack. Es wird auch auf Telegram gelöscht.
