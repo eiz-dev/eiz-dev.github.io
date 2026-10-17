@@ -1,6 +1,7 @@
 {% comment %}
-Support page template, Spanish (MOCK wording). App-specific questions come
-from app.faq in _data/apps.yml.
+Support page template, Spanish. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step. App-specific questions come from app.faq in _data/apps.yml.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.support }}
 
@@ -31,7 +32,7 @@ Los reembolsos los gestiona la tienda: [Apple](https://reportaproblem.apple.com)
 
 {% endif %}{% if app.ads %}{% if app.ads_consent == false %}**¿Cómo limito la personalización de los anuncios?**<br>
 En los ajustes del dispositivo (Android: Ajustes → Google → Anuncios, o Ajustes → Privacidad → Anuncios).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} elimina los anuncios por completo.{% endif %}{% endif %}{% else %}**¿Cómo cambio mi consentimiento para anuncios?**<br>
-En los ajustes de la app, en las opciones de privacidad de anuncios (se muestran donde se aplica el consentimiento).{% if app.iap %} {{ app.premium_name }} elimina los anuncios por completo.{% endif %}{% endif %}
+{% if app.ads_privacy_path[lang] %}En **{{ app.ads_privacy_path[lang] }}**{% else %}En los ajustes de la app, en las opciones de privacidad de anuncios{% endif %} (se muestra en el EEE, el Reino Unido y Suiza, donde se aplica el consentimiento).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} elimina los anuncios por completo.{% endif %}{% endif %}{% endif %}
 
 {% endif %}## Legal
 

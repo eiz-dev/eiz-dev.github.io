@@ -1,6 +1,7 @@
 {% comment %}
-Support page template, French (MOCK wording). App-specific questions come
-from app.faq in _data/apps.yml.
+Support page template, French. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step. App-specific questions come from app.faq in _data/apps.yml.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.support }}
 
@@ -31,7 +32,7 @@ Les remboursements sont gérés par la boutique : [Apple](https://reportaproblem
 
 {% endif %}{% if app.ads %}{% if app.ads_consent == false %}**Comment limiter la personnalisation des publicités ?**<br>
 Dans les réglages de votre appareil (Android : Paramètres → Google → Annonces, ou Paramètres → Confidentialité → Annonces).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} supprime entièrement les publicités.{% endif %}{% endif %}{% else %}**Comment modifier mon consentement publicitaire ?**<br>
-Dans les réglages de l’app, sous les choix de confidentialité publicitaire (affichés là où le consentement s’applique).{% if app.iap %} {{ app.premium_name }} supprime entièrement les publicités.{% endif %}{% endif %}
+{% if app.ads_privacy_path[lang] %}Dans **{{ app.ads_privacy_path[lang] }}**{% else %}Dans les réglages de l’app, sous les choix de confidentialité publicitaire{% endif %} (affiché dans l’EEE, au Royaume-Uni et en Suisse, où le consentement s’applique).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} supprime entièrement les publicités.{% endif %}{% endif %}{% endif %}
 
 {% endif %}## Mentions légales
 

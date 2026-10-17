@@ -1,6 +1,7 @@
 {% comment %}
-MOCK terms of use template (Spanish). Keep it in step with terms.en.md and its
-app.* switches.
+Terms of use template, Spanish. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.terms }}
 
@@ -12,9 +13,13 @@ Estas condiciones se aplican a **{{ app.name }}** («la app»), proporcionada po
 
 Te concedemos una licencia personal, no exclusiva e intransferible para usar la app en los dispositivos que te pertenecen o controlas. No la copies, revendas ni apliques ingeniería inversa, salvo en la medida en que la ley lo permita.
 
+## Quién puede usar la app
+
+Debes tener al menos 13 años. Si eres menor de edad según la ley de tu país, usa la app solo con permiso de tu madre, padre o tutor.
+
 {% if app.iap %}## Compras
 
-{% if app.iap_kind == "subscription" %}Las suscripciones se renuevan automáticamente hasta que las canceles en los ajustes de tu cuenta de la tienda.{% elsif app.iap_plans %}{{ app.iap_plans[lang] }} son compras únicas que desbloquean funciones adicionales en todos los dispositivos con la misma cuenta de la tienda.{% else %}{{ app.premium_name }} es una compra única que desbloquea funciones adicionales en todos los dispositivos con la misma cuenta de la tienda.{% endif %} Los pagos, reembolsos y restauraciones los gestiona Apple o Google. Puedes restaurar una compra desde la app.
+{% if app.iap_kind == "subscription" %}Las suscripciones se renuevan automáticamente hasta que las canceles en los ajustes de tu cuenta de la tienda.{% elsif app.iap_plans %}{{ app.iap_plans[lang] }} son compras únicas que desbloquean funciones adicionales en todos los dispositivos con la misma cuenta de la tienda.{% else %}{{ app.premium_name }} es una compra única que desbloquea funciones adicionales en todos los dispositivos con la misma cuenta de la tienda.{% endif %} Los pagos, reembolsos y restauraciones los gestiona Apple o Google. Puedes restaurar una compra desde la app. Las compras son contenido digital que se entrega al instante: donde se aplica el derecho de consumo de la UE, la tienda te pide tu consentimiento al pagar y el derecho de desistimiento de 14 días termina entonces. Por lo demás, los reembolsos siguen la política de la tienda; tus derechos legales no se ven afectados.
 {% endif %}
 
 {% if app.ads %}## Publicidad
@@ -28,7 +33,7 @@ La versión gratuita muestra anuncios de terceros. No somos responsables del con
 
 Solo puedes usar fotos y otro material que te pertenezca o que tengas permiso para usar, incluido el permiso de las personas que aparecen en ellos. No crees ni publiques contenido que sea ilegal, que vulnere derechos ajenos (derechos de autor, marcas, privacidad), que acose, amenace o sexualice a nadie, que muestre contenido sexual con menores, que promueva la violencia o el odio, o que sea abusivo de cualquier otro modo. Eres responsable de lo que creas y publicas.
 
-Al publicar, nos permites tratar tus stickers y subirlos a Telegram en tu nombre, solo con ese fin. Los packs publicados son públicos en Telegram{% if app.telegram %} y están sujetos a las normas de Telegram{% endif %}. Si sabemos que un pack incumple estas condiciones o la ley, podemos borrarlo y dejar de prestarte el servicio.{% else %}El contenido que creas en la app se queda en tu dispositivo y sigue siendo tuyo. Haz tus propias copias de seguridad; no podemos recuperar datos perdidos.{% endif %}
+Al publicar, nos permites tratar tus stickers y subirlos a Telegram en tu nombre, solo con ese fin. Los packs publicados son públicos en Telegram{% if app.telegram %} y están sujetos a las normas de Telegram{% endif %}. Si sabemos que un pack incumple estas condiciones o la ley, podemos borrarlo y dejar de prestarte el servicio. Para denunciar un pack creado con la app, envíanos su enlace (t.me/addstickers/…). Revisamos cada denuncia sin demoras indebidas.{% else %}El contenido que creas en la app se queda en tu dispositivo y sigue siendo tuyo. Haz tus propias copias de seguridad; no podemos recuperar datos perdidos.{% endif %}
 
 ## Sin garantía
 

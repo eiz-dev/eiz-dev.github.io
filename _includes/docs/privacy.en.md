@@ -1,7 +1,7 @@
 {% comment %}
-MOCK privacy policy template. Replace with the reviewed text from
-drum-app/docs/legal/privacy-policy.md, keeping the {% raw %}{% if app.* %}{% endraw %} switches
-so one template fits every app. Do not indent lines (Markdown code blocks).
+Privacy policy template, English. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.privacy }}
 
@@ -53,7 +53,7 @@ Telegram processes these data under its own [privacy policy](https://telegram.or
 
 The free version shows ads served by Google AdMob{% if app.ad_formats %}: {{ app.ad_formats[lang] }}{% endif %}. Google's software on your device may collect device identifiers (such as the Android Advertising ID), your IP address, device and app information and interactions with ads, in order to show, cap, measure and — only with your consent — personalise ads. Google acts as an independent controller.
 
-{% if app.ads_consent == false %}The app does not show its own consent message. Where the law requires consent for personalised ads (for example in the EEA, UK and Switzerland), Google does not serve personalised ads without it and may show non-personalised or limited ads instead. You can reset your advertising ID or opt out of personalised ads in your device settings (Android: Settings → Google → Ads, or Settings → Privacy → Ads).{% if app.iap and app.ads_paid_note %} {{ app.ads_paid_note[lang] }}{% endif %}{% else %}In the EEA, UK and Switzerland a consent message is shown before any ad is requested. You can change your choice at any time in the app's settings.{% if app.iap %} If you buy {{ app.premium_name }}, the ad software is no longer started.{% endif %}{% endif %}
+{% if app.ads_consent == false %}The app does not show its own consent message. Where the law requires consent for personalised ads (for example in the EEA, UK and Switzerland), Google does not serve personalised ads without it and may show non-personalised or limited ads instead. You can reset your advertising ID or opt out of personalised ads in your device settings (Android: Settings → Google → Ads, or Settings → Privacy → Ads).{% if app.iap and app.ads_paid_note %} {{ app.ads_paid_note[lang] }}{% endif %}{% else %}In the EEA, UK and Switzerland the app first shows Google's consent message (Google User Messaging Platform) and requests no ad before you answer. If you don't consent, Google shows only non-personalised or limited ads. Your choice is stored on your device; you can change it at any time in {% if app.ads_privacy_path[lang] %}**{{ app.ads_privacy_path[lang] }}**{% else %}the app's settings{% endif %}.{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}If you buy {{ app.premium_name }}, the ad software is no longer started.{% endif %}{% endif %}{% endif %}
 {% endif %}
 
 {% if app.iap %}## Purchases
@@ -76,17 +76,43 @@ The app contains no analytics or crash-reporting service.
 {% for sdk in app.sdks %}| [{{ sdk.name }}]({{ sdk.privacy_url }}) | {{ sdk.provider }} | {{ sdk.purpose[lang] }} |
 {% endfor %}{% else %}The app uses no third-party services that process personal data.{% endif %}
 
+## Legal bases
+
+Where the GDPR or a similar law applies, we process data on these bases:
+
+{% if app.accounts or app.iap %}- **Our contract with you** (Art. 6(1)(b) GDPR): {% if app.accounts %}the record on our server{% if app.telegram %}, connecting Telegram and publishing your packs{% endif %}{% if app.iap %}, and {% endif %}{% endif %}{% if app.iap %}unlocking what you bought{% endif %}.
+{% endif %}{% if app.ads %}- **Your consent** (Art. 6(1)(a) GDPR): personalised ads. **Our legitimate interest** in funding the free version (Art. 6(1)(f) GDPR): non-personalised ads, limiting how often ads appear and preventing ad fraud.
+{% endif %}{% if app.analytics %}- **Our legitimate interest** in a stable app (Art. 6(1)(f) GDPR): crash and error reports.
+{% endif %}- **Our legitimate interest** in answering you (Art. 6(1)(f) GDPR): messages you send us.
+
+## Where data is processed
+
+We are based in Ukraine. {% if app.sdks.size > 0 %}The services listed above may process data in other countries, including the United States. For data from the EEA, the UK and Switzerland they rely on an adequacy decision (such as the EU–US Data Privacy Framework) or on the European Commission's Standard Contractual Clauses.{% else %}The app's data stays on your device.{% endif %}
+
+## How long we keep data
+
+- On your device: until you delete it in the app or uninstall the app.
+{% if app.accounts %}- The record on our server: while you use the app, and at most 30 days after you ask us to delete it.
+- Our server's request logs: a few days.
+{% endif %}{% if app.analytics %}- Crash and error reports: 90 days.
+{% endif %}- Emails to us: as long as we need them to answer you.
+
+{% if app.accounts %}## Security
+
+The app talks to our server only over encrypted connections (HTTPS), and only the developer can access the server and its database.
+{% endif %}
+
 ## When you contact us
 
 If you email us{% if studio.support.form_url != "" %} or use the support form (processed by {{ studio.support.form_processor }}){% endif %}, we use your message and address only to answer you and delete them when no longer needed.
 
 ## Your rights
 
-Depending on where you live, you may access, correct or delete your data, object to processing, and withdraw consent. {% if app.accounts %}Data on your device you control directly; for data on our server, email us.{% else %}Because the app keeps your data on your device, you control it directly.{% endif %} You may also complain to a data-protection authority.
+Depending on where you live, you may access, correct, delete or export your data, restrict or object to its processing, and withdraw your consent at any time (this doesn't affect processing before the withdrawal). We answer within one month. {% if app.accounts %}Data on your device you control directly; for data on our server, email us.{% else %}Because the app keeps your data on your device, you control it directly.{% endif %} You may also complain to a data-protection authority.
 
 ## Children
 
-The app is not directed at children under 13. We do not knowingly collect personal information from children.
+The app is not directed at children under 13. We do not knowingly collect personal information from children. If you are under the age of digital consent in your country (up to 16 in the EU), ask a parent or guardian before using the app.
 
 ## Changes
 

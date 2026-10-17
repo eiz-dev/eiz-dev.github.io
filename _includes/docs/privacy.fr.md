@@ -1,6 +1,7 @@
 {% comment %}
-MOCK privacy policy template (French). Keep it in step with privacy.en.md and
-its {% raw %}{% if app.* %}{% endraw %} switches. Do not indent lines (Markdown code blocks).
+Privacy policy template, French. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.privacy }}
 
@@ -52,7 +53,7 @@ Telegram traite ces données selon sa propre [politique de confidentialité](htt
 
 La version gratuite affiche des publicités diffusées par Google AdMob{% if app.ad_formats %} : {{ app.ad_formats[lang] }}{% endif %}. Le logiciel de Google sur votre appareil peut collecter des identifiants d’appareil (comme l’identifiant publicitaire Android), votre adresse IP, des informations sur l’appareil et l’app ainsi que vos interactions avec les publicités, afin d’afficher, de plafonner, de mesurer et — uniquement avec votre consentement — de personnaliser les publicités. Google agit en tant que responsable de traitement indépendant.
 
-{% if app.ads_consent == false %}L’app n’affiche pas son propre message de consentement. Là où la loi exige un consentement pour les publicités personnalisées (par exemple dans l’EEE, au Royaume-Uni et en Suisse), Google ne diffuse pas de publicités personnalisées sans lui et peut afficher à la place des publicités non personnalisées ou limitées. Vous pouvez réinitialiser votre identifiant publicitaire ou refuser les publicités personnalisées dans les réglages de votre appareil (Android : Paramètres → Google → Annonces, ou Paramètres → Confidentialité → Annonces).{% if app.iap and app.ads_paid_note %} {{ app.ads_paid_note[lang] }}{% endif %}{% else %}Dans l’EEE, au Royaume-Uni et en Suisse, un message de consentement s’affiche avant toute demande de publicité. Vous pouvez modifier votre choix à tout moment dans les réglages de l’app.{% if app.iap %} Si vous achetez {{ app.premium_name }}, le logiciel publicitaire n’est plus lancé.{% endif %}{% endif %}
+{% if app.ads_consent == false %}L’app n’affiche pas son propre message de consentement. Là où la loi exige un consentement pour les publicités personnalisées (par exemple dans l’EEE, au Royaume-Uni et en Suisse), Google ne diffuse pas de publicités personnalisées sans lui et peut afficher à la place des publicités non personnalisées ou limitées. Vous pouvez réinitialiser votre identifiant publicitaire ou refuser les publicités personnalisées dans les réglages de votre appareil (Android : Paramètres → Google → Annonces, ou Paramètres → Confidentialité → Annonces).{% if app.iap and app.ads_paid_note %} {{ app.ads_paid_note[lang] }}{% endif %}{% else %}Dans l’EEE, au Royaume-Uni et en Suisse, l’app affiche d’abord le message de consentement de Google (Google User Messaging Platform) et ne demande aucune publicité avant votre réponse. Si vous refusez, Google n’affiche que des publicités non personnalisées ou limitées. Votre choix est enregistré sur votre appareil ; vous pouvez le modifier à tout moment {% if app.ads_privacy_path[lang] %}dans **{{ app.ads_privacy_path[lang] }}**{% else %}dans les réglages de l’app{% endif %}.{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}Si vous achetez {{ app.premium_name }}, le logiciel publicitaire n’est plus lancé.{% endif %}{% endif %}{% endif %}
 {% endif %}
 
 {% if app.iap %}## Achats
@@ -75,17 +76,43 @@ L’app ne contient aucun service d’analyse ni de rapport de plantage.
 {% for sdk in app.sdks %}| [{{ sdk.name }}]({{ sdk.privacy_url }}) | {{ sdk.provider }} | {{ sdk.purpose[lang] }} |
 {% endfor %}{% else %}L’app n’utilise aucun service tiers traitant des données personnelles.{% endif %}
 
+## Bases légales
+
+Lorsque le RGPD ou une loi similaire s’applique, nous traitons les données sur les bases suivantes :
+
+{% if app.accounts or app.iap %}- **Notre contrat avec vous** (art. 6(1)(b) RGPD) : {% if app.accounts %}l’enregistrement sur notre serveur{% if app.telegram %}, la connexion à Telegram et la publication de vos packs{% endif %}{% if app.iap %}, ainsi que {% endif %}{% endif %}{% if app.iap %}le déblocage de vos achats{% endif %}.
+{% endif %}{% if app.ads %}- **Votre consentement** (art. 6(1)(a) RGPD) : les publicités personnalisées. **Notre intérêt légitime** à financer la version gratuite (art. 6(1)(f) RGPD) : les publicités non personnalisées, la limitation de leur fréquence et la lutte contre la fraude publicitaire.
+{% endif %}{% if app.analytics %}- **Notre intérêt légitime** à disposer d’une app stable (art. 6(1)(f) RGPD) : les rapports de plantage et d’erreur.
+{% endif %}- **Notre intérêt légitime** à vous répondre (art. 6(1)(f) RGPD) : les messages que vous nous envoyez.
+
+## Où les données sont traitées
+
+Nous sommes établis en Ukraine. {% if app.sdks.size > 0 %}Les services listés ci-dessus peuvent traiter des données dans d’autres pays, notamment aux États-Unis. Pour les données provenant de l’EEE, du Royaume-Uni et de la Suisse, ils s’appuient sur une décision d’adéquation (comme le EU–US Data Privacy Framework) ou sur les clauses contractuelles types de la Commission européenne.{% else %}Les données de l’app restent sur votre appareil.{% endif %}
+
+## Durée de conservation
+
+- Sur votre appareil : jusqu’à ce que vous les supprimiez dans l’app ou désinstalliez l’app.
+{% if app.accounts %}- L’enregistrement sur notre serveur : tant que vous utilisez l’app, et au plus 30 jours après votre demande de suppression.
+- Les journaux de requêtes de notre serveur : quelques jours.
+{% endif %}{% if app.analytics %}- Les rapports de plantage et d’erreur : 90 jours.
+{% endif %}- Les e-mails que vous nous envoyez : le temps nécessaire pour vous répondre.
+
+{% if app.accounts %}## Sécurité
+
+L’app communique avec notre serveur uniquement via des connexions chiffrées (HTTPS), et seul le développeur a accès au serveur et à sa base de données.
+{% endif %}
+
 ## Lorsque vous nous contactez
 
 Si vous nous écrivez{% if studio.support.form_url != "" %} ou utilisez le formulaire d’assistance (traité par {{ studio.support.form_processor }}){% endif %}, nous utilisons votre message et votre adresse uniquement pour vous répondre et les supprimons lorsqu’ils ne sont plus nécessaires.
 
 ## Vos droits
 
-Selon votre lieu de résidence, vous pouvez accéder à vos données, les rectifier ou les supprimer, vous opposer à leur traitement et retirer votre consentement. {% if app.accounts %}Vous contrôlez directement les données sur votre appareil ; pour les données sur notre serveur, écrivez-nous.{% else %}Comme l’app conserve vos données sur votre appareil, vous les contrôlez directement.{% endif %} Vous pouvez aussi introduire une réclamation auprès d’une autorité de protection des données (en France, la CNIL).
+Selon votre lieu de résidence, vous pouvez accéder à vos données, les rectifier, les supprimer ou en obtenir une copie (portabilité), en limiter le traitement ou vous y opposer, et retirer votre consentement à tout moment (sans effet sur le traitement antérieur). Nous répondons sous un mois. {% if app.accounts %}Vous contrôlez directement les données sur votre appareil ; pour les données sur notre serveur, écrivez-nous.{% else %}Comme l’app conserve vos données sur votre appareil, vous les contrôlez directement.{% endif %} Vous pouvez aussi introduire une réclamation auprès d’une autorité de protection des données (en France, la CNIL).
 
 ## Enfants
 
-L’app ne s’adresse pas aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d’informations personnelles concernant des enfants.
+L’app ne s’adresse pas aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d’informations personnelles concernant des enfants. Si vous n’avez pas l’âge du consentement numérique dans votre pays (15 ans en France, jusqu’à 16 ans dans l’UE), demandez l’accord d’un parent ou tuteur avant d’utiliser l’app.
 
 ## Modifications
 

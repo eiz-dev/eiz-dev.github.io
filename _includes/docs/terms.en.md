@@ -1,6 +1,7 @@
 {% comment %}
-MOCK terms of use template. Replace with the reviewed text from
-drum-app/docs/legal/terms-of-use.md, keeping the app.* switches.
+Terms of use template, English. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.terms }}
 
@@ -12,9 +13,13 @@ These terms apply to **{{ app.name }}** ("the app"), provided by {{ studio.owner
 
 We grant you a personal, non-exclusive, non-transferable licence to use the app on devices you own or control. Do not copy, resell or reverse-engineer it except where the law allows.
 
+## Who can use the app
+
+You must be at least 13 years old. If you are under the age of majority where you live, use the app only with a parent's or guardian's permission.
+
 {% if app.iap %}## Purchases
 
-{% if app.iap_kind == "subscription" %}Subscriptions renew automatically until cancelled in your store account settings.{% elsif app.iap_plans %}{{ app.iap_plans[lang] }} are one-time purchases that unlock extra features on all devices signed in to the same store account.{% else %}{{ app.premium_name }} is a one-time purchase that unlocks extra features on all devices signed in to the same store account.{% endif %} Payments, refunds and restores are handled by Apple or Google. You can restore a purchase from within the app.
+{% if app.iap_kind == "subscription" %}Subscriptions renew automatically until cancelled in your store account settings.{% elsif app.iap_plans %}{{ app.iap_plans[lang] }} are one-time purchases that unlock extra features on all devices signed in to the same store account.{% else %}{{ app.premium_name }} is a one-time purchase that unlocks extra features on all devices signed in to the same store account.{% endif %} Payments, refunds and restores are handled by Apple or Google. You can restore a purchase from within the app. Purchases are digital content supplied at once: where EU consumer law applies, the store asks at checkout for your consent to that, and the 14-day right of withdrawal then ends. Otherwise refunds follow the store's policy; your statutory rights are not affected.
 {% endif %}
 
 {% if app.ads %}## Advertising
@@ -28,7 +33,7 @@ The free version shows ads provided by third parties. We are not responsible for
 
 You may only use photos and other material that you own or have permission to use, including permission from people shown in them. Do not create or publish content that is illegal, infringes others' rights (copyright, trademarks, privacy), harasses, threatens or sexualises anyone, shows sexual content involving minors, promotes violence or hatred, or is otherwise abusive. You are responsible for what you create and publish.
 
-When you publish, you allow us to process your stickers and upload them to Telegram on your behalf, only for that purpose. Published packs are public on Telegram{% if app.telegram %} and subject to Telegram's rules{% endif %}. If we learn that a pack breaks these terms or the law, we may delete it and stop providing the service to you.{% else %}Content you create in the app stays on your device and remains yours. Keep your own backups; we cannot recover lost data.{% endif %}
+When you publish, you allow us to process your stickers and upload them to Telegram on your behalf, only for that purpose. Published packs are public on Telegram{% if app.telegram %} and subject to Telegram's rules{% endif %}. If we learn that a pack breaks these terms or the law, we may delete it and stop providing the service to you. To report a pack made with the app, email us its link (t.me/addstickers/…). We look at every report without undue delay.{% else %}Content you create in the app stays on your device and remains yours. Keep your own backups; we cannot recover lost data.{% endif %}
 
 ## No warranty
 

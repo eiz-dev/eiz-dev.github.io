@@ -4,9 +4,10 @@ Developer website for all studio apps: privacy policies, terms, support pages,
 legal notice and `app-ads.txt`. Plain GitHub Pages + Jekyll — no CI, no plugins, $0.
 Implements `drum-app/LEGAL_HOSTING_PLAN.md`.
 
-> **Status: mock content.** The document texts (governing law and the review of the wording) are still
-> mock; owner name, support email and AdMob publisher ID are real. A "Draft" banner shows
-> on every page until `mock_content: false`.
+> **Status: live texts** (`mock_content: false`, no "Draft" banner). The documents cover the GDPR
+> basics (legal bases, transfers, retention, rights) and the EU consumer points for in-app purchases.
+> They were written without a lawyer; have them reviewed when the studio grows, and set
+> `mock_content: true` again if you want the banner back while texts are reworked.
 
 ## Layout
 
@@ -82,9 +83,9 @@ features both versions support.
       and keep it **public** (free Pages requires that).
 - [ ] **Pages.** Settings → Pages → _Deploy from a branch_ → `main` / root.
       Check `https://eiz-dev.github.io/app-ads.txt`.
-- [ ] **Real texts.** Port the reviewed drafts from `drum-app/docs/legal/` into
-      `_includes/docs/*.md`, keeping the `{% if app.* %}` switches. Do not indent
-      lines (Markdown would turn them into code blocks). Then set `mock_content: false`.
+- [x] **Texts.** `_includes/docs/*.md` hold the live texts in five languages; `mock_content: false`.
+      Keep the `{% if app.* %}` switches and don't indent lines (Markdown would turn
+      them into code blocks).
 - [x] **Studio facts.** `owner_name`, `support.email` and `admob_publisher_id`
       are set.
 - [ ] **Support inbox.** Every page uses `support.email` (`support@eizdev.com`).

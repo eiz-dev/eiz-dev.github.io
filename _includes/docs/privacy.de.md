@@ -1,5 +1,7 @@
 {% comment %}
-MOCK — durch den geprüften Text aus drum-app/docs/legal/privacy-policy.de.md ersetzen.
+Privacy policy template, German. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.privacy }}
 
@@ -51,7 +53,7 @@ Telegram verarbeitet diese Daten nach seiner eigenen [Datenschutzerklärung](htt
 
 Die kostenlose Version zeigt Werbung über Google AdMob{% if app.ad_formats %}: {{ app.ad_formats[lang] }}{% endif %}. Googles Software auf deinem Gerät kann Gerätekennungen (z. B. die Android-Werbe-ID), deine IP-Adresse, Geräte- und App-Informationen sowie Interaktionen mit Anzeigen erfassen, um Werbung auszuliefern, zu begrenzen, zu messen und — nur mit deiner Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 TDDDG) — zu personalisieren. Google ist eigenständig Verantwortlicher.
 
-{% if app.ads_consent == false %}Die App zeigt keinen eigenen Einwilligungsdialog. Wo das Gesetz für personalisierte Werbung eine Einwilligung verlangt (z. B. im EWR, im Vereinigten Königreich und in der Schweiz), liefert Google ohne sie keine personalisierte Werbung aus und kann stattdessen nicht personalisierte oder eingeschränkte Anzeigen zeigen. Du kannst deine Werbe-ID zurücksetzen oder personalisierte Werbung in den Geräteeinstellungen abwählen (Android: Einstellungen → Google → Werbung bzw. Einstellungen → Datenschutz → Werbung).{% if app.iap and app.ads_paid_note %} {{ app.ads_paid_note[lang] }}{% endif %}{% else %}Im EWR, im Vereinigten Königreich und in der Schweiz erscheint vor der ersten Anzeigenanfrage ein Einwilligungsdialog. Du kannst deine Wahl jederzeit in den Einstellungen der App ändern.{% if app.iap %} Nach dem Kauf von {{ app.premium_name }} wird die Werbesoftware nicht mehr gestartet.{% endif %}{% endif %}
+{% if app.ads_consent == false %}Die App zeigt keinen eigenen Einwilligungsdialog. Wo das Gesetz für personalisierte Werbung eine Einwilligung verlangt (z. B. im EWR, im Vereinigten Königreich und in der Schweiz), liefert Google ohne sie keine personalisierte Werbung aus und kann stattdessen nicht personalisierte oder eingeschränkte Anzeigen zeigen. Du kannst deine Werbe-ID zurücksetzen oder personalisierte Werbung in den Geräteeinstellungen abwählen (Android: Einstellungen → Google → Werbung bzw. Einstellungen → Datenschutz → Werbung).{% if app.iap and app.ads_paid_note %} {{ app.ads_paid_note[lang] }}{% endif %}{% else %}Im EWR, im Vereinigten Königreich und in der Schweiz zeigt die App zuerst Googles Einwilligungsdialog (Google User Messaging Platform) und fordert keine Anzeige an, bevor du geantwortet hast. Ohne Einwilligung zeigt Google nur nicht personalisierte oder eingeschränkte Anzeigen. Deine Wahl wird auf deinem Gerät gespeichert; du kannst sie jederzeit {% if app.ads_privacy_path[lang] %}unter **{{ app.ads_privacy_path[lang] }}**{% else %}in den Einstellungen der App{% endif %} ändern.{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}Nach dem Kauf von {{ app.premium_name }} wird die Werbesoftware nicht mehr gestartet.{% endif %}{% endif %}{% endif %}
 {% endif %}
 
 {% if app.iap %}## Käufe
@@ -74,17 +76,43 @@ Die App enthält keine Analyse- oder Absturzberichtsdienste.
 {% for sdk in app.sdks %}| [{{ sdk.name }}]({{ sdk.privacy_url }}) | {{ sdk.provider }} | {{ sdk.purpose[lang] }} |
 {% endfor %}{% else %}Die App nutzt keine Drittanbieter, die personenbezogene Daten verarbeiten.{% endif %}
 
+## Rechtsgrundlagen
+
+Soweit die DSGVO oder ein vergleichbares Gesetz gilt, verarbeiten wir Daten auf diesen Grundlagen:
+
+{% if app.accounts or app.iap %}- **Vertrag mit dir** (Art. 6 Abs. 1 lit. b DSGVO): {% if app.accounts %}der Eintrag auf unserem Server{% if app.telegram %}, die Verbindung mit Telegram und das Veröffentlichen deiner Packs{% endif %}{% if app.iap %} sowie {% endif %}{% endif %}{% if app.iap %}das Freischalten deiner Käufe{% endif %}.
+{% endif %}{% if app.ads %}- **Deine Einwilligung** (Art. 6 Abs. 1 lit. a DSGVO): personalisierte Werbung. **Unser berechtigtes Interesse** an der Finanzierung der kostenlosen Version (Art. 6 Abs. 1 lit. f DSGVO): nicht personalisierte Werbung, Begrenzung der Anzeigenhäufigkeit und Schutz vor Werbebetrug.
+{% endif %}{% if app.analytics %}- **Unser berechtigtes Interesse** an einer stabilen App (Art. 6 Abs. 1 lit. f DSGVO): Absturz- und Fehlerberichte.
+{% endif %}- **Unser berechtigtes Interesse**, dir zu antworten (Art. 6 Abs. 1 lit. f DSGVO): Nachrichten an uns.
+
+## Wo Daten verarbeitet werden
+
+Wir sitzen in der Ukraine. {% if app.sdks.size > 0 %}Die oben genannten Dienste können Daten in anderen Ländern verarbeiten, auch in den USA. Für Daten aus dem EWR, dem Vereinigten Königreich und der Schweiz stützen sie sich auf einen Angemessenheitsbeschluss (etwa das EU-US Data Privacy Framework) oder auf die Standardvertragsklauseln der EU-Kommission.{% else %}Die Daten der App bleiben auf deinem Gerät.{% endif %}
+
+## Speicherdauer
+
+- Auf deinem Gerät: bis du sie in der App löschst oder die App deinstallierst.
+{% if app.accounts %}- Der Eintrag auf unserem Server: solange du die App nutzt, und höchstens 30 Tage nach deiner Löschanfrage.
+- Anfrageprotokolle unseres Servers: wenige Tage.
+{% endif %}{% if app.analytics %}- Absturz- und Fehlerberichte: 90 Tage.
+{% endif %}- E-Mails an uns: solange wir sie für die Antwort brauchen.
+
+{% if app.accounts %}## Sicherheit
+
+Die App kommuniziert mit unserem Server nur über verschlüsselte Verbindungen (HTTPS), und nur der Entwickler hat Zugriff auf den Server und seine Datenbank.
+{% endif %}
+
 ## Wenn du uns kontaktierst
 
 Wenn du uns eine E-Mail schreibst{% if studio.support.form_url != "" %} oder das Support-Formular nutzt (verarbeitet durch {{ studio.support.form_processor }}){% endif %}, nutzen wir Nachricht und Adresse nur zur Beantwortung (Art. 6 Abs. 1 lit. f DSGVO) und löschen sie, sobald sie nicht mehr benötigt werden.
 
 ## Deine Rechte
 
-Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch und Widerruf deiner Einwilligung. {% if app.accounts %}Daten auf deinem Gerät hast du selbst in der Hand; für Daten auf unserem Server schreib uns.{% else %}Da die Daten auf deinem Gerät liegen, hast du sie selbst in der Hand.{% endif %} Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren.
+Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch und Widerruf deiner Einwilligung mit Wirkung für die Zukunft. Wir antworten innerhalb eines Monats. {% if app.accounts %}Daten auf deinem Gerät hast du selbst in der Hand; für Daten auf unserem Server schreib uns.{% else %}Da die Daten auf deinem Gerät liegen, hast du sie selbst in der Hand.{% endif %} Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren.
 
 ## Kinder
 
-Die App richtet sich nicht an Kinder unter 13 Jahren (bzw. unter dem Mindestalter für die Einwilligung in deinem Land).
+Die App richtet sich nicht an Kinder unter 13 Jahren. Wir erheben wissentlich keine personenbezogenen Daten von Kindern. Bist du jünger als das Mindestalter für die digitale Einwilligung in deinem Land (in Deutschland 16 Jahre), frag vor der Nutzung deine Eltern oder Erziehungsberechtigten.
 
 ## Änderungen
 

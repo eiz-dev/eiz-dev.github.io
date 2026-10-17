@@ -1,5 +1,7 @@
 {% comment %}
-Vorlage Support-Seite (MOCK). App-spezifische Fragen kommen aus app.faq in _data/apps.yml.
+Support page template, German. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step. App-specific questions come from app.faq in _data/apps.yml.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.support }}
 
@@ -30,7 +32,7 @@ Erstattungen laufen über den Store: [Apple](https://reportaproblem.apple.com) �
 
 {% endif %}{% if app.ads %}{% if app.ads_consent == false %}**Wie schränke ich personalisierte Werbung ein?**<br>
 In den Geräteeinstellungen (Android: Einstellungen → Google → Werbung bzw. Einstellungen → Datenschutz → Werbung).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} entfernt Werbung vollständig.{% endif %}{% endif %}{% else %}**Wie ändere ich meine Werbe-Einwilligung?**<br>
-In den Einstellungen der App unter den Datenschutzoptionen für Werbung (dort angezeigt, wo eine Einwilligung nötig ist).{% if app.iap %} {{ app.premium_name }} entfernt Werbung vollständig.{% endif %}{% endif %}
+{% if app.ads_privacy_path[lang] %}Unter **{{ app.ads_privacy_path[lang] }}**{% else %}In den Einstellungen der App unter den Datenschutzoptionen für Werbung{% endif %} (angezeigt im EWR, im Vereinigten Königreich und in der Schweiz, wo eine Einwilligung nötig ist).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} entfernt Werbung vollständig.{% endif %}{% endif %}{% endif %}
 
 {% endif %}## Rechtliches
 

@@ -1,6 +1,7 @@
 {% comment %}
-Support page template (MOCK wording). App-specific questions come from
-app.faq in _data/apps.yml.
+Support page template, English. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step. App-specific questions come from app.faq in _data/apps.yml.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.support }}
 
@@ -31,7 +32,7 @@ Refunds are handled by the store: [Apple](https://reportaproblem.apple.com) · [
 
 {% endif %}{% if app.ads %}{% if app.ads_consent == false %}**How do I limit ad personalisation?**<br>
 In your device settings (Android: Settings → Google → Ads, or Settings → Privacy → Ads).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} removes ads entirely.{% endif %}{% endif %}{% else %}**How do I change my ad consent?**<br>
-In the app's settings, under ad privacy choices (shown where consent applies).{% if app.iap %} {{ app.premium_name }} removes ads entirely.{% endif %}{% endif %}
+{% if app.ads_privacy_path[lang] %}In **{{ app.ads_privacy_path[lang] }}**{% else %}In the app's settings, under ad privacy choices{% endif %} (shown in the EEA, the UK and Switzerland, where consent applies).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} removes ads entirely.{% endif %}{% endif %}{% endif %}
 
 {% endif %}## Legal
 

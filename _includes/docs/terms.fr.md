@@ -1,6 +1,7 @@
 {% comment %}
-MOCK terms of use template (French). Keep it in step with terms.en.md and its
-app.* switches.
+Terms of use template, French. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.terms }}
 
@@ -12,9 +13,13 @@ Les présentes conditions s’appliquent à **{{ app.name }}** (« l’app »), 
 
 Nous vous accordons une licence personnelle, non exclusive et non transférable d’utilisation de l’app sur les appareils que vous possédez ou contrôlez. Ne la copiez pas, ne la revendez pas et ne la décompilez pas, sauf dans la mesure où la loi le permet.
 
+## Qui peut utiliser l’app
+
+Vous devez avoir au moins 13 ans. Si vous êtes mineur selon la loi de votre pays, n’utilisez l’app qu’avec l’accord d’un parent ou tuteur.
+
 {% if app.iap %}## Achats
 
-{% if app.iap_kind == "subscription" %}Les abonnements se renouvellent automatiquement jusqu’à leur résiliation dans les réglages de votre compte de la boutique.{% elsif app.iap_plans %}{{ app.iap_plans[lang] }} sont des achats uniques qui débloquent des fonctions supplémentaires sur tous les appareils connectés au même compte de la boutique.{% else %}{{ app.premium_name }} est un achat unique qui débloque des fonctions supplémentaires sur tous les appareils connectés au même compte de la boutique.{% endif %} Les paiements, remboursements et restaurations sont gérés par Apple ou Google. Vous pouvez restaurer un achat depuis l’app.
+{% if app.iap_kind == "subscription" %}Les abonnements se renouvellent automatiquement jusqu’à leur résiliation dans les réglages de votre compte de la boutique.{% elsif app.iap_plans %}{{ app.iap_plans[lang] }} sont des achats uniques qui débloquent des fonctions supplémentaires sur tous les appareils connectés au même compte de la boutique.{% else %}{{ app.premium_name }} est un achat unique qui débloque des fonctions supplémentaires sur tous les appareils connectés au même compte de la boutique.{% endif %} Les paiements, remboursements et restaurations sont gérés par Apple ou Google. Vous pouvez restaurer un achat depuis l’app. Les achats sont des contenus numériques fournis immédiatement : lorsque le droit de la consommation de l’UE s’applique, la boutique vous demande votre accord au moment du paiement, et le droit de rétractation de 14 jours prend alors fin. Pour le reste, les remboursements suivent la politique de la boutique ; vos droits légaux ne sont pas affectés.
 {% endif %}
 
 {% if app.ads %}## Publicité
@@ -28,7 +33,7 @@ La version gratuite affiche des publicités fournies par des tiers. Nous ne somm
 
 Vous ne pouvez utiliser que des photos et d’autres contenus qui vous appartiennent ou que vous avez le droit d’utiliser, y compris avec l’accord des personnes qui y figurent. Ne créez ni ne publiez aucun contenu illégal, portant atteinte aux droits d’autrui (droit d’auteur, marques, vie privée), harcelant, menaçant ou sexualisant qui que ce soit, montrant des contenus sexuels impliquant des mineurs, faisant l’apologie de la violence ou de la haine, ou abusif de toute autre manière. Vous êtes responsable de ce que vous créez et publiez.
 
-Lorsque vous publiez, vous nous autorisez à traiter vos stickers et à les envoyer sur Telegram en votre nom, uniquement à cette fin. Les packs publiés sont publics sur Telegram{% if app.telegram %} et soumis aux règles de Telegram{% endif %}. Si nous apprenons qu’un pack enfreint les présentes conditions ou la loi, nous pouvons le supprimer et cesser de vous fournir le service.{% else %}Le contenu que vous créez dans l’app reste sur votre appareil et vous appartient. Faites vos propres sauvegardes ; nous ne pouvons pas récupérer des données perdues.{% endif %}
+Lorsque vous publiez, vous nous autorisez à traiter vos stickers et à les envoyer sur Telegram en votre nom, uniquement à cette fin. Les packs publiés sont publics sur Telegram{% if app.telegram %} et soumis aux règles de Telegram{% endif %}. Si nous apprenons qu’un pack enfreint les présentes conditions ou la loi, nous pouvons le supprimer et cesser de vous fournir le service. Pour signaler un pack créé avec l’app, envoyez-nous son lien (t.me/addstickers/…). Nous examinons chaque signalement sans retard injustifié.{% else %}Le contenu que vous créez dans l’app reste sur votre appareil et vous appartient. Faites vos propres sauvegardes ; nous ne pouvons pas récupérer des données perdues.{% endif %}
 
 ## Absence de garantie
 

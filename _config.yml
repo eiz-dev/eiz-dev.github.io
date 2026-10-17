@@ -16,7 +16,7 @@ languages: [en, uk, de, fr, es]
 
 # Shows a "draft / mock content" banner on every page. Set to false once the
 # templates in _includes/docs/ contain the reviewed texts.
-mock_content: true
+mock_content: false
 
 exclude:
   - README.md

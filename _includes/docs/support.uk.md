@@ -1,5 +1,7 @@
 {% comment %}
-Шаблон сторінки підтримки (MOCK). Запитання конкретного застосунку — з app.faq у _data/apps.yml.
+Support page template, Ukrainian. One template per language; the {% raw %}{% if app.* %}{% endraw %}
+switches and _data/apps.yml fit it to each app. Keep the five languages in step. App-specific questions come from app.faq in _data/apps.yml.
+Do not indent lines (Markdown would turn them into code blocks).
 {% endcomment %}
 # {{ t.support }}
 
@@ -30,7 +32,7 @@
 
 {% endif %}{% if app.ads %}{% if app.ads_consent == false %}**Як обмежити персоналізацію реклами?**<br>
 У налаштуваннях пристрою (Android: Налаштування → Google → Реклама або Налаштування → Конфіденційність → Реклама).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} повністю прибирає рекламу.{% endif %}{% endif %}{% else %}**Як змінити згоду на рекламу?**<br>
-У налаштуваннях застосунку, у розділі налаштувань конфіденційності реклами (показується там, де потрібна згода).{% if app.iap %} {{ app.premium_name }} повністю прибирає рекламу.{% endif %}{% endif %}
+{% if app.ads_privacy_path[lang] %}У розділі **{{ app.ads_privacy_path[lang] }}**{% else %}У налаштуваннях застосунку, у розділі налаштувань конфіденційності реклами{% endif %} (показується в ЄЕЗ, Великій Британії та Швейцарії, де потрібна згода).{% if app.iap %} {% if app.ads_paid_note %}{{ app.ads_paid_note[lang] }}{% else %}{{ app.premium_name }} повністю прибирає рекламу.{% endif %}{% endif %}{% endif %}
 
 {% endif %}## Правова інформація
 

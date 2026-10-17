@@ -11,6 +11,7 @@
 #   telegram_disconnect_path
 #   user_content                Terms: rules for photos/content the user uploads
 #   ads_consent: false          the app shows no consent message (no UMP)
+#   ads_privacy_path            in-app path to change the ad consent (UMP privacy options)
 #   ad_formats                  which ads the free version shows
 #   ads_paid_note               sentence on what purchases do to ads (default: premium_name removes ads)
 #   iap_plans                   several one-time purchases instead of one premium_name
@@ -28,7 +29,7 @@ stick-and-kick:
     fr: "Entraîneur de rythme pour batteurs — tapez en mesure et voyez votre régularité."
     es: "Entrenador de ritmo para bateristas: toca al compás y mira lo estable que eres."
   email_tag: stickkick               # plus-alias tag, used only if studio.support.plus_aliases
-  effective_date: 2026-10-12
+  effective_date: 2026-10-17
   stores:
     ios: ""                          # App Store URL once live
     android: ""                      # https://play.google.com/store/apps/details?id=com.stickandkick.app
@@ -111,13 +112,19 @@ stickerzzz:
   effective_date: 2026-10-17
   stores:
     ios: ""                          # Android only
-    android: https://play.google.com/store/apps/details?id=com.sixEyesForTwo.stickerzzz
+    android: https://play.google.com/store/apps/details?id=com.eizdev.stickerzzz
 
   # Free version: interstitial ads at some moments + optional rewarded videos
   # (lib/models/services/ads_manager_service.dart, lib/core/ads/rewarded_video.dart).
-  # No banner. No UMP consent form in the app (google_mobile_ads only).
+  # No banner. EU consent through Google's UMP (lib/core/ads/ad_consent.dart):
+  # nothing is requested before it; Settings → Ad privacy choices changes it.
   ads: true
-  ads_consent: false
+  ads_privacy_path:
+    en: Settings → Ad privacy choices
+    uk: Налаштування → Конфіденційність реклами
+    de: Settings → Ad privacy choices
+    fr: "Réglages → Confidentialité des annonces"
+    es: "Ajustes → Privacidad de los anuncios"
   ad_formats:
     en: full-screen ads at some moments, and rewarded videos you can choose to watch for an extra sticker slot
     uk: повноекранну рекламу в окремі моменти та відео з винагородою, які ви можете переглянути за додаткове місце для стікера
@@ -240,6 +247,10 @@ stickerzzz:
     - name: Google AdMob
       provider: Google Ireland Limited (EEA/UK/CH), Google LLC (elsewhere)
       purpose: { en: Advertising, uk: Реклама, de: Werbung, fr: "Publicité", es: "Publicidad" }
+      privacy_url: https://policies.google.com/privacy
+    - name: Google User Messaging Platform
+      provider: Google Ireland Limited / Google LLC
+      purpose: { en: Ad consent, uk: Згода на рекламу, de: Werbe-Einwilligung, fr: "Consentement publicitaire", es: "Consentimiento para anuncios" }
       privacy_url: https://policies.google.com/privacy
     - name: Google Play Billing
       provider: Google Ireland Limited / Google LLC
