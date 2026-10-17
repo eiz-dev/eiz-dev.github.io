@@ -41,3 +41,31 @@ de:
   get_ios: App Store
   get_android: Google Play
   mock_banner: Entwurf — Platzhaltertext, nicht die endgültige rechtliche Fassung.
+
+fr:
+  lang_name: Français
+  privacy: Politique de confidentialité
+  terms: Conditions d’utilisation
+  support: Assistance
+  legal_notice: Mentions légales
+  apps: Apps
+  contact: Contact
+  effective_date: Date d’entrée en vigueur
+  email: E-mail
+  get_ios: App Store
+  get_android: Google Play
+  mock_banner: Brouillon — texte provisoire, pas la version juridique définitive.
+
+es:
+  lang_name: Español
+  privacy: Política de privacidad
+  terms: Condiciones de uso
+  support: Soporte
+  legal_notice: Aviso legal
+  apps: Apps
+  contact: Contacto
+  effective_date: Fecha de entrada en vigor
+  email: Correo electrónico
+  get_ios: App Store
+  get_android: Google Play
+  mock_banner: Borrador — texto provisional, no la redacción legal definitiva.

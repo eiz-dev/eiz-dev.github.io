@@ -61,7 +61,7 @@ Die kostenlose Version zeigt Werbung über Google AdMob{% if app.ad_formats %}: 
 
 {% if app.analytics %}## Analyse und Absturzberichte
 
-MOCK — Anbieter, Daten, Zweck und Rechtsgrundlage beschreiben.
+{{ app.analytics_note[lang] }}
 {% else %}## Analyse
 
 Die App enthält keine Analyse- oder Absturzberichtsdienste.

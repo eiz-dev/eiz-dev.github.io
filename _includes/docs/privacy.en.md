@@ -63,7 +63,7 @@ The free version shows ads served by Google AdMob{% if app.ad_formats %}: {{ app
 
 {% if app.analytics %}## Analytics and crash reporting
 
-MOCK — describe provider, data, purpose and legal basis.
+{{ app.analytics_note[lang] }}
 {% else %}## Analytics
 
 The app contains no analytics or crash-reporting service.

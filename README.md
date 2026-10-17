@@ -11,7 +11,7 @@ Implements `drum-app/LEGAL_HOSTING_PLAN.md`.
 ## Layout
 
 ```
-_config.yml              site URL, languages (en/uk/de), mock banner switch
+_config.yml              site URL, languages (en/uk/de/fr/es), mock banner switch
 _data/studio.yml         developer facts: owner, support email, AdMob pub ID
 _data/apps.yml           one entry per app + flags (ads, iap, sdks, local data, FAQ)
 _data/i18n.yml           UI strings per language
@@ -26,14 +26,14 @@ gmail/mailFilters.xml    Gmail filters to import (generated)
 
 URLs (default language has no prefix):
 
-| Page               | URL                                                           |
-| ------------------ | ------------------------------------------------------------- |
-| App list + contact | `/`                                                           |
-| AdMob              | `/app-ads.txt`                                                |
-| Legal notice       | `/legal-notice/`                                              |
-| Privacy            | `/<app>/privacy/`, `/<app>/uk/privacy/`, `/<app>/de/privacy/` |
-| Terms              | `/<app>/terms/` (+ `/uk/`, `/de/`)                            |
-| Support            | `/<app>/support/` (+ `/uk/`, `/de/`)                          |
+| Page               | URL                                                                     |
+| ------------------ | ----------------------------------------------------------------------- |
+| App list + contact | `/`                                                                     |
+| AdMob              | `/app-ads.txt`                                                          |
+| Legal notice       | `/legal-notice/`                                                        |
+| Privacy            | `/<app>/privacy/`, `/<app>/<lang>/privacy/` for `uk`, `de`, `fr`, `es` |
+| Terms              | `/<app>/terms/` (+ `/uk/`, `/de/`, `/fr/`, `/es/`)                      |
+| Support            | `/<app>/support/` (+ `/uk/`, `/de/`, `/fr/`, `/es/`)                    |
 
 ## How the per-app documents work
 
@@ -48,10 +48,17 @@ which is what the stores check, and nothing is copy-pasted.
 Keep the flags true to what the shipped build actually does. If you add an SDK
 to an app, add it to `sdks` in the same change.
 
+## Adding a language
+
+1. Add the code to `languages` in `_config.yml` and a block to `_data/i18n.yml`.
+2. Translate `_includes/docs/{privacy,terms,support}.en.md` to `<doc>.<lang>.md`.
+3. Add the language to every per-language value in `_data/apps.yml`.
+4. Run `ruby scripts/new_app.rb <slug>` for each app (it only adds the missing stubs).
+
 ## Adding an app
 
 1. Add an entry to `_data/apps.yml`. Copy `stick-and-kick` and adjust it.
-2. `ruby scripts/new_app.rb <slug>`: creates the 9 page stubs.
+2. `ruby scripts/new_app.rb <slug>`: creates the 15 page stubs (3 documents × 5 languages).
 3. `ruby scripts/gmail_filters.rb`, then re-import `gmail/mailFilters.xml` (only if
    the support inbox is read in Gmail).
 4. `ruby scripts/legal_config.rb <slug>`: paste the output into the app's
